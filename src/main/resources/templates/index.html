@@ -1,0 +1,99 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width = device-width, initial-scale = 1, shrink-to-fit = no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <title>MyWeather</title>
+</head>
+
+<body>
+<div class="container">
+    <nav class = "navbar navbar-expand-sm navbar-dark bg-secondary">
+        <a class = "navbar-brand" href = "/">MyWeather App</a>
+        <button class = "navbar-toggler" type = "button" data-toggle = "collapse"
+                data-target = "#navbarSupportedContent"
+                aria-controls = "navbarSupportedContent" aria-expanded = "false"
+                aria-label = "Toggle navigation">
+            <span class = "navbar-toggler-icon"></span>
+        </button>
+
+        <div class = "collapse navbar-collapse" id = "navbarSupportedContent">
+            <ul class = "navbar-nav mr-auto">
+                <li class = "nav-item active">
+                    <a class = "nav-link" href = "/">Instant Weather</a>
+                </li>
+                <!--<li class = "nav-item ">
+                    <a class = "nav-link" href = "/watchlist">Watchlist</a>
+                </li>
+                <li class = "nav-item ">
+                    <a class = "nav-link" href = "WatchlistItemForm-static.html">Submit an item</a>
+                </li>-->
+            </ul>
+        </div>
+    </nav>
+    <h2  class = "mt-4">Instant Weather</h2>
+
+    <table class="table">
+        <thead class = "thead-light">
+        <tr>
+            <th class="text-left">
+                <a href="/sort">City</a>
+            </th>
+            <th class="text-left">Temperature</th>
+            <th class="text-left">Feels like</th>
+            <th class="text-left">Speed</th>
+            <th class="text-left">Deg</th>
+            <th class="text-left">Temp Max</th>
+            <th class="text-left">Temp min</th>
+            <th class="text-left">Humidity</th>
+            <th class="text-left">Main</th>
+            <th class="text-left">Description</th>
+            <th class="text-left">ID</th>
+            <!-- <th class="text-left">Image</th> -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- <tr>
+            <td>Nome</td>
+            <td>Temp1</td>
+            <td>Temp2</td>
+        </tr>
+        <tr>
+            <td>Nome</td>
+            <td>Temp1</td>
+            <td>Temp2</td>
+        </tr>
+        <tr>
+            <td>Nome</td>
+            <td>Temp1</td>
+            <td>Temp2</td>
+        </tr> -->
+        <tr th:each="City: ${cities}">
+            <td>
+                <a th:href="@{'/city/' + ${City.shortname}}" th:text="${City.name}" />
+            </td>
+            <td th:text="${City.Main.temp} + ' ºC'">Temp1</td>
+            <td th:text="${City.Main.feels_like} + ' ºC'">Temp2</td>
+            <td th:text="${City.Wind.speed} + ' km/h'">Temp2</td>
+            <td th:text="${City.Wind.deg} + ' º'">Temp2</td>
+            <td th:text="${City.Main.temp_max} + ' ºC'">Temp2</td>
+            <td th:text="${City.Main.temp_min} + ' ºC'">Temp2</td>
+            <td th:text="${City.Main.humidity} + ' %'">Temp2</td>
+            <span th:each="Weather : ${City.Weather}">
+                <td th:text="${Weather.main} + ''">Temp2</td>
+                <td th:text="${Weather.description} + ''">Temp2</td>
+                <td th:text="${Weather.id} + ''">Temp2</td>
+
+            </span>
+            <!-- <td th:text="${City.Weather.description} + ' ºC'">Temp2</td>
+            <td th:text="${City.Weather.icon} + ' ºC'">Temp2</td> -->
+        </tr>
+
+    </table>
+    <hr>
+</div>
+<!--
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
+</body>
+</html>

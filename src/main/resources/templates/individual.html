@@ -1,0 +1,111 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width = device-width, initial-scale = 1, shrink-to-fit = no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <title>MyWeather</title>
+</head>
+
+<body>
+<div class="container">
+    <nav class = "navbar navbar-expand-sm navbar-dark bg-secondary">
+        <a class = "navbar-brand" href = "/">MyWeather App</a>
+        <button class = "navbar-toggler" type = "button" data-toggle = "collapse"
+                data-target = "#navbarSupportedContent"
+                aria-controls = "navbarSupportedContent" aria-expanded = "false"
+                aria-label = "Toggle navigation">
+            <span class = "navbar-toggler-icon"></span>
+        </button>
+
+        <div class = "collapse navbar-collapse" id = "navbarSupportedContent">
+            <ul class = "navbar-nav mr-auto">
+                <li class = "nav-item">
+                    <a class = "nav-link" href = "/">Instant Weather</a>
+                </li>
+                <!--<li class = "nav-item ">
+                    <a class = "nav-link" href = "/watchlist">Watchlist</a>
+                </li>
+                <li class = "nav-item ">
+                    <a class = "nav-link" href = "WatchlistItemForm-static.html">Submit an item</a>
+                </li>-->
+            </ul>
+        </div>
+    </nav>
+    <h2 th:text="${cityentities[0].name}" class = "mt-4"></h2>
+
+    <div>
+        <h2 align="center">1 Week Weather Data</h2>
+
+        <div id="containergraphtemp"
+             style="width: 550px; height: 400px; margin: 0 auto"></div>
+    </div>
+
+    <table class="table">
+        <thead class = "thead-light">
+        <tr>
+            <th class="text-left">Date</th>
+            <th class="text-left">Temperature</th>
+            <th class="text-left">Wind Speed</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="CityEntity: ${cityentities}">
+            <td th:text="${CityEntity.date}">Date</td>
+            <td th:text="${CityEntity.temp}">Temp</td>
+            <td th:text="${CityEntity.windspeed}">WindSpeed</td>
+        </tr>
+
+
+    </table>
+    <hr>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script th:inline="javascript">
+    $(function(){
+        Highcharts.chart('containergraphtemp', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '1 Week Temperature Graph'
+            },
+            /*subtitle: {
+                text: 'All Details is not true its a dummy Map'
+            },*/
+            xAxis: {
+                categories: [[${dadosTemp.keySet()}]],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                max:40,
+                title: {
+                    text: 'Temperature [in ºC]'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} ºC</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Temperature',
+                data: [[${dadosTemp.values()}]]
+            }]
+        });
+    });
+</script>
+</body>
+</html>

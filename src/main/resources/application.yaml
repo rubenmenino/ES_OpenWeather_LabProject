@@ -1,0 +1,21 @@
+spring:
+  jpa:
+    database: MYSQL
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+
+  datasource:
+    url: jdbc:mysql://demo-mysql:3306/demo
+    username: demo_user
+    password: demo_pass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  kafka:
+    producer:
+      bootstrap-servers: kafka:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
